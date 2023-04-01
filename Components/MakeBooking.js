@@ -112,10 +112,6 @@ export default function MakeBookingScreen({ navigation }) {
         )}
 
         <View style={styles.buttonContainer}>
-          <Button
-            title="Check availability"
-            onPress={handleAvailabilityCheck}
-          />
           <Button title="Confirm booking" onPress={handleBookingConfirmation} />
         </View>
       </View>

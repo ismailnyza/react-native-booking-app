@@ -45,10 +45,14 @@ export default function IpayForm(props) {
       .catch((error) => {
         console.error(error);
         Alert.alert("Failed to create booking");
+    props.navigation.navigate("Home");
+
+
       });
   } else if (url === "http://mywebsite.com/cancel?orderId=OID123456") {
     // Payment failed
-    webViewRef.current.destroy();
+    // webViewRef.current.destroy();
+    props.navigation.navigate("Home");
     Alert.alert("Transaction Failed");
   }
 };
