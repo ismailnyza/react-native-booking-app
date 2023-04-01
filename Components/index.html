@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <form method="POST" action="https://sandbox.ipay.lk/ipg/checkout">
+      <input
+        type="hidden"
+        name="merchantWebToken"
+        value="eyJhbGciOiJIUzUxMiJ9.eyJiYW5rQWNjb3VudCI6ImFjYy4yM2VlQExPRkNAMSIsIm1lcmNoYW50Q29kZSI6IjIzZWUiLCJjcmVhdGVkRGF0ZSI6MTY4MDMxNjE2NjQ1NCwibWVyY2hhbnRJZCI6NDI3LCJpc1ZpcnR1YWwiOiJOIiwibWVyY2hhbnROYW1lIjoiamhqaGpoamhqIn0.dYdgZ2MYSqiynlq4NPsOAz8KYZLWG9R6Vr7kzmnuWSg1vQZDgDSvYHt5aknD4v4REIGC5CJwhEStSpn15NL1sg"
+      />
+      <input type="hidden" name="orderId" value="OID123456" />
+      <input type="hidden" name="orderDescription" value="My Order" />
+      <!-- Optional -->
+      <input
+        type="hidden"
+        name="returnUrl"
+        value="http://mywebsite.com/return?orderId=OID123456"
+      />
+      <input
+        type="hidden"
+        name="cancelUrl"
+        value="http://mywebsite.com/cancel?orderId=OID123456"
+      />
+      <input type="hidden" name="subMerchantReference" value="" />
+      <table>
+        <tr>
+          <td><input type="hidden" name="totalAmount" value="2000" /></td>
+        </tr>
+        <tr>
+            <input type="hidden" name="customerName" value="Test user" />
+          </td>
+        </tr>
+        <tr>
+          <td><input type="hidden" name="customerPhone" value="0701234567" /></td>
+        </tr>
+        <tr>
+            <input type="hidden" name="customerEmail" value="myemail@mail.com" />
+          </td>
+        </tr>
+      </table>
+      <br />
+      <input type="submit" value="Checkout Now" />
+    </form>
+  </body>
+</html>

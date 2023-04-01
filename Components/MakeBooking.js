@@ -5,7 +5,7 @@ import { Picker } from "@react-native-picker/picker";
 
 import { styles } from "../Styles/Styles";
 
-export default function MakeBookingScreen({navigation}) {
+export default function MakeBookingScreen({ navigation }) {
   const [doctor, setDoctor] = useState("");
   const [appointmentTime, setAppointmentTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -44,18 +44,21 @@ export default function MakeBookingScreen({navigation}) {
     // Code to check doctor availability goes here
     Alert.alert("Doctor is available!");
   };
-
   const handleBookingConfirmation = () => {
     // Code to confirm booking goes here
     // Navigate to the confirm payment screen
-    
-    Alert.alert("Booking confirmed!");
-    navigation.navigate("ConfirmBooking" , { customerName: 'John Doe',
-    date: 'April 15, 2023',
-    time: '2:30 PM',
-    doctorName: 'Dr. Jane Smith',
-    hospital: 'City Hospital',
-    totalCharge: 100})
+
+    navigation.navigate("ConfirmBooking", {
+      customerName1: "John Doe",
+      date: appointmentTime.toLocaleDateString(),
+      time: appointmentTime.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      doctorName: doctor,
+      hospital: "City Hospital",
+      totalCharge: 2000,
+    });
   };
 
   return (

@@ -8,6 +8,7 @@ import MakeBookingScreen from "./Components/MakeBooking";
 import ConfirmBooking from "./Components/IpayForm";
 import IpayForm from "./Components/IpayForm";
 import MyBookings from "./Components/MyBookings";
+import RefundDetails from "./Components/RefundDetails";
 
 
 const Stack = createStackNavigator();
@@ -40,6 +41,7 @@ export default function App() {
         <Stack.Screen name="MyBookingsScreen" component={MyBookings} />
         <Stack.Screen name="ConfirmBooking" component={ConfirmBooking} />
         <Stack.Screen name="IpayForm" component={IpayForm} />
+        <Stack.Screen name="RefundDetails" component={RefundDetails} />
 
       </Stack.Navigator>
     </NavigationContainer>
