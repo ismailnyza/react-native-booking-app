@@ -8,24 +8,52 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function IpayForm() {http://localhost:8080/bookings/create
+export default function IpayForm(props) {
   const [currentUrl, setCurrentUrl] = useState('');
-
+  const patient = props.route.params;
+  console.log(patient);
   const handleNavigationStateChange = (navState) => {
     const { url } = navState;
+  if (url != null) {
     setCurrentUrl(url);
-    console.log(url)
+    console.log(url);
+  }
 
-    if (url.startsWith("https://sandbox.ipay.lk/ipg/checkout/mpgs/return?resultIndicator")){
-      // Payment successful
-      webViewRef.current.stopLoading();
-      Alert.alert("Payment Successful");
-    } else if (url === "http://mywebsite.com/cancel?orderId=OID123456") {
-      // Payment failed
-      webViewRef.current.stopLoading();
-      Alert.alert("Transaction Failed");
-    }
-  };
+  if (
+    url.startsWith(
+      "https://sandbox.ipay.lk/ipg/checkout/mpgs/return?resultIndicator"
+    )
+  ) {
+    // Payment successful
+    // webViewRef.current.stopLoading();
+    fetch("http://192.168.122.1:9090/bookings/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(patient),
+    })
+      .then((response) => {
+        if (response.ok) {
+          Alert.alert("Payment Successful");
+          // Navigate to MyBookingsScreen
+          props.navigation.navigate("Home");
+        } else {
+          Alert.alert("Failed to create booking");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert("Failed to create booking");
+      });
+  } else if (url === "http://mywebsite.com/cancel?orderId=OID123456") {
+    // Payment failed
+    webViewRef.current.destroy();
+    Alert.alert("Transaction Failed");
+  }
+};
+
+
 
   const htmlContent = `
   <!DOCTYPE html>

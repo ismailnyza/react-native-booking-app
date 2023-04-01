@@ -49,7 +49,7 @@ export default function MakeBookingScreen({ navigation }) {
     // Navigate to the confirm payment screen
 
     navigation.navigate("ConfirmBooking", {
-      customerName1: "John Doe",
+      customerName: "John Doe",
       date: appointmentTime.toLocaleDateString(),
       time: appointmentTime.toLocaleTimeString([], {
         hour: "2-digit",
