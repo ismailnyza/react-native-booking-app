@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, Alert, Platform } from "react-native";
+import { StyleSheet, Text, View, Button, Alert, Platform , ImageBackground } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 
@@ -11,6 +11,15 @@ export default function MakeBookingScreen({ navigation }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
+  const doctors = [
+    { key: 1, doctorName: "Dr. John Smith", doctorId: 1001, specialization: "Cardiology", location: "New York" },
+    { key: 2, doctorName: "Dr. Jane Doe", doctorId: 1002, specialization: "Pediatrics", location: "Los Angeles" },
+    { key: 3, doctorName: "Dr. Michael Johnson", doctorId: 1003, specialization: "Orthopedics", location: "Chicago" },
+    { key: 4, doctorName: "Dr. Sarah Lee", doctorId: 1004, specialization: "Dermatology", location: "San Francisco" },
+    { key: 5, doctorName: "Dr. David Chen", doctorId: 1005, specialization: "Obstetrics and Gynecology", location: "Houston" }
+  ];
+
+  
   const handleDoctorChange = (value) => {
     setDoctor(value);
   };
@@ -62,16 +71,19 @@ export default function MakeBookingScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Make a booking</Text>
+    <ImageBackground
+        source={require("../assets/Admin-payments.png")} // Replace with your image source
+        style={styles.backgroundImage}
+        resizeMode="stretch"
+      >
+      <Text style={[styles.title, { fontFamily: "Poppins_700Bold" }]}>Make a booking</Text>
       <View style={styles.form}>
         <Text style={styles.label}>Doctor</Text>
-        <Picker selectedValue={doctor} onValueChange={handleDoctorChange}>
-          <Picker.Item label="Dr. John Doe" value="Dr. John Doe" />
-          <Picker.Item label="Dr. Jane Smith" value="Dr. Jane Smith" />
-          <Picker.Item label="Dr. Robert Johnson" value="Dr. Robert Johnson" />
-        </Picker>
-
+        <SelectList 
+        setSelected={(val) => setSelected(val)} 
+        data={doctors} 
+        save="value"
+    />
         <Text style={styles.dateTimeText}>
           {appointmentTime.toLocaleDateString()}
         </Text>
@@ -115,6 +127,6 @@ export default function MakeBookingScreen({ navigation }) {
           <Button title="Confirm booking" onPress={handleBookingConfirmation} />
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }

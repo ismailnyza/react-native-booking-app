@@ -1,103 +1,78 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
+    flex: 2,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    height: '100%',
+    width: '100%',
+    fontFamily: "Poppins_700Bold",
+    color: "black",
+  },
+  backgroundGradient: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  title: {
+    fontSize: 24,
+    fontFamily: "Poppins_700Bold",
+    color: "black",
   },
-  details: {
-    width: '80%',
-    marginBottom: 20,
+  form: {
+    width: "80%",
+    color: 'black',
+    fontFamily: "Poppins_400Regular",
   },
   label: {
     fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 5,
+    color: 'black',
+    fontFamily: "Poppins_400Regular",
+    margin: 2,
   },
-  value: {
+  dateTimeText: {
     fontSize: 16,
     marginBottom: 10,
+    color: 'black',
+    fontFamily: "Poppins_400Regular",
+  },
+  dateTimeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    color: 'black',
+    fontFamily: "Poppins_700Bold",
+  },
+  dateTime: {
+    flex: 1,
+    marginRight: 10,
+    color: 'black',
+    fontFamily: "Poppins_700Bold",
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    marginTop: 10,
+    width: 200,
+    height: 50,
   },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 10,
+  imageDoctor: {
+    width: 250,
+    height: 250,
+    resizeMode: "contain",
   },
-  container: {
+  picker: {
+    color: 'black',
+    fontFamily: "Poppins_400Regular",
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  backgroundImage: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 20,
+    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  bookingHeader: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  bookingRow: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  bookingCell: {
-    width: '20%',
-  },
-  refundButtonCell: {
-    width: '20%',
-    alignItems: 'flex-end',
-  },
-  refundButton: {
-    color: 'red',
-    textDecorationLine: 'underline',
-    fontWeight: 'bold',
-  },
-  refundBubble: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    top: 40,
-    right: 10,
-    zIndex: 1,
-  },
-  refundBubbleText: {
-    marginBottom: 10,
-  },
-  refundButtonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  confirmRefundButton: {
-    color: 'green',
-  },
-  declineRefundButton: {
-    color: 'red',
-  }
 });
