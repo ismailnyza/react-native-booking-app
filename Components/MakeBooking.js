@@ -20,6 +20,7 @@ export default function MakeBookingScreen({ navigation }) {
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [patientName, setpatientName] = useState(false);
   const [patientDescription, setpatientDescription] = useState(false);
+  const [bookingTime , setBookingTime] = useState("")
 
   const TextInputWithLabel = ({ label, value, onChangeText }) => {
     return (
@@ -72,19 +73,13 @@ export default function MakeBookingScreen({ navigation }) {
   };
 
   const handleAppointmentTimeChange = (event, selectedTime) => {
-
     if (selectedTime) {
-      const selectedDateTime = new Date(appointmentTime);
-      selectedDateTime.setHours(selectedTime.getHours(), selectedTime.getMinutes(), 0, 0);
-      setAppointmentTime(selectedDateTime);
-      appointmentTime.setHours(selectedTime.getHours())
-      appointmentTime.setMinutes(selectedTime.getMinutes())
-      console.log("selected :", selectedTime.getHours() + ":" + selectedTime.getMinutes());
+      setBookingTime(selectedTime.toString())
+      console.log("booking time:" , bookingTime)
       setShowTimePicker(false);
-      
     }
-    
   };
+  
 
   const showDatePickerModal = () => {
     setShowDatePicker(true);
@@ -132,8 +127,8 @@ export default function MakeBookingScreen({ navigation }) {
     // Prepare request data
     const request_data = {
       bookingDoctor: doctors[doctor-1].doctorName,
-      bookingDate: appointmentTime.toISOString().substring(0, 10),
-      bookingTime: appointmentTime.toISOString().substring(11, 19),
+      bookingDate: bookingTime.substring(0, 15),
+      bookingTime: bookingTime.substring(16, 24),
     };
     // const time = appointmentTime.substr(12, 8);
     console.log("Request data ", request_data);
@@ -149,7 +144,7 @@ export default function MakeBookingScreen({ navigation }) {
           body: JSON.stringify(request_data),
         }
       );
-
+        
       if (response.ok) {
         console.log(response)
         console.log(appointmentTime)
