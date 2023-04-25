@@ -75,13 +75,13 @@ export default function MakeBookingScreen({ navigation }) {
 
     if (selectedTime) {
       const selectedDateTime = new Date(appointmentTime);
-      selectedDateTime.setHours(selectedTime.getHours());
-      selectedDateTime.setMinutes(selectedTime.getMinutes());
-      console.log(event.nativeEvent)
+      selectedDateTime.setHours(selectedTime.getHours(), selectedTime.getMinutes(), 0, 0);
       setAppointmentTime(selectedDateTime);
-      console.log("selected :" , selectedDateTime)
-      console.log(appointmentTime)
+      appointmentTime.setHours(selectedTime.getHours())
+      appointmentTime.setMinutes(selectedTime.getMinutes())
+      console.log("selected :", selectedTime.getHours() + ":" + selectedTime.getMinutes());
       setShowTimePicker(false);
+      
     }
     
   };
@@ -131,7 +131,6 @@ export default function MakeBookingScreen({ navigation }) {
     }
     // Prepare request data
     const request_data = {
-      
       bookingDoctor: doctors[doctor-1].doctorName,
       bookingDate: appointmentTime.toISOString().substring(0, 10),
       bookingTime: appointmentTime.toISOString().substring(11, 19),
@@ -164,7 +163,6 @@ export default function MakeBookingScreen({ navigation }) {
       // console.error("Error:", error);
       Alert.alert("Failed to check doctor availability.");
     }
-  console.log("hi")
   };
 
   const handleBookingConfirmation = () => {
