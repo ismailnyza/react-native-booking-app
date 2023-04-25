@@ -124,12 +124,12 @@ export default function MakeBookingScreen({ navigation }) {
       alert("Please Add a Patient Description.");
       return;
     }
-    // Prepare request data
     const request_data = {
       bookingDoctor: doctors[doctor-1].doctorName,
-      bookingDate: bookingTime.substring(0, 15),
-      bookingTime: bookingTime.substring(16, 24),
+      bookingDate: appointmentTime.toISOString().substring(0, 10),
+      bookingTime: bookingTime.substring(16, 22) + '00',
     };
+    
     // const time = appointmentTime.substr(12, 8);
     console.log("Request data ", request_data);
 
