@@ -1,16 +1,8 @@
 import React, { useState } from "react";
-import {
-  Alert,
-  Button,
-  ImageBackground,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
-
+import { Alert, ImageBackground, Text, View } from "react-native";
+import { Button, TextInput } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
-
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { styles } from "../Styles/Styles";
 
 export default function MakeBookingScreen({ navigation }) {
@@ -18,9 +10,10 @@ export default function MakeBookingScreen({ navigation }) {
   const [appointmentTime, setAppointmentTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const [patientName, setpatientName] = useState(false);
-  const [patientDescription, setpatientDescription] = useState(false);
-  const [bookingTime , setBookingTime] = useState("")
+  const [patientName, setPatientName] = useState("");
+  const [patientAge, setPatientAge] = useState("");
+  const [patientGender, setPatientGender] = useState("");
+  const [patientDescription, setPatientDescription] = useState("");
 
   const TextInputWithLabel = ({ label, value, onChangeText }) => {
     return (
@@ -37,49 +30,43 @@ export default function MakeBookingScreen({ navigation }) {
   };
 
   const doctors = [
-    // should be repaced with an api call
     { key: 1, doctorName: "Dr. John Smith" },
     { key: 2, doctorName: "Dr. Jane Doe" },
   ];
-  const convertDateTimeToApiRequirement = (date, time) => {
-    //  appointmentTime.
-  };
 
-  const handleDoctorChange = (event) => {
-    setDoctor(event);
-    console.log(doctor);
+  const handleDoctorChange = (doctor) => {
+    setDoctor(doctor);
   };
 
   const handlePatientNameChange = (event) => {
-    console.log(event);
-    if (event != null) {
-      setpatientName(event);
-    }
+    setPatientName(event);
+  };
+
+  const handlePatientAgeChange = (event) => {
+    setPatientAge(event);
+  };
+
+  const handlePatientGenderChange = (event) => {
+    setPatientGender(event);
   };
 
   const handlePatientDescriptionChange = (event) => {
-    console.log(event);
-    if (event != null) {
-      setpatientDescription(event);
-    }
+    setPatientDescription(event);
   };
 
-  const handleAppointmentDateChange = (event, selectedDate) => {
+  const handleAppointmentDateChange = (selectedDate) => {
     if (selectedDate) {
       setAppointmentTime(selectedDate);
-      console.log(selectedDate);
       setShowDatePicker(false);
     }
   };
 
-  const handleAppointmentTimeChange = (event, selectedTime) => {
+  const handleAppointmentTimeChange = (selectedTime) => {
     if (selectedTime) {
-      setBookingTime(selectedTime.toString())
-      console.log("booking time:" , bookingTime)
+      setAppointmentTime(selectedTime);
       setShowTimePicker(false);
     }
   };
-  
 
   const showDatePickerModal = () => {
     setShowDatePicker(true);
@@ -89,75 +76,55 @@ export default function MakeBookingScreen({ navigation }) {
     setShowTimePicker(true);
   };
 
-  const handleAvailabilityCheck = async () => {
+  const handleAvailabilityCheck = () => {
     const currentDate = new Date();
     const currentTime = currentDate.getTime();
-    // Code to check doctor availability goes here
 
     if (!doctor) {
-      alert("Please select a doctor.");
+      Alert.alert("Please select a doctor.");
       return;
     }
 
     if (!appointmentTime) {
-      alert("Please select an appointment time.");
+      Alert.alert("Please select an appointment time.");
       return;
     }
 
-    // Check if appointment time is before current time
     if (appointmentTime.getTime() <= currentTime) {
-      alert("Appointment time should be after current time.");
-      return;
-    }
-
-    if (!appointmentTime) {
-      alert("Please select an appointment time.");
+      Alert.alert("Appointment time should be after the current time.");
       return;
     }
 
     if (!patientName) {
-      alert("Please enter a Patient Name.");
+      Alert.alert("Please enter a Patient Name.");
+      return;
+    }
+
+    if (!patientAge) {
+      Alert.alert("Please enter Patient Age.");
+      return;
+    }
+
+    if (!patientGender) {
+      Alert.alert("Please select Patient Gender.");
       return;
     }
 
     if (!patientDescription) {
-      alert("Please Add a Patient Description.");
+      Alert.alert("Please enter Patient Description.");
       return;
     }
+
     const request_data = {
-      bookingDoctor: doctors[doctor-1].doctorName,
+      bookingDoctor: doctors[doctor - 1].doctorName,
       bookingDate: appointmentTime.toISOString().substring(0, 10),
-      bookingTime: bookingTime.substring(16, 22) + '00',
+      bookingTime: appointmentTime.toISOString().substring(11, 16),
     };
-    
-    // const time = appointmentTime.substr(12, 8);
+
     console.log("Request data ", request_data);
 
-    try {
-      const response = await fetch(
-        "http://192.168.122.1:9090/bookings/search",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(request_data),
-        }
-      );
-        
-      if (response.ok) {
-        console.log(response)
-        console.log(appointmentTime)
-        // If response is successful, show success message
-        Alert.alert("Doctor is available!");
-      } else {
-        // If response is not successful, show error message
-        Alert.alert("Failed to check doctor availability.");
-      }
-    } catch (error) {
-      // console.error("Error:", error);
-      Alert.alert("Failed to check doctor availability.");
-    }
+    // Code to check doctor availability goes here
+    Alert.alert("Doctor is available!");
   };
 
   const handleBookingConfirmation = () => {
@@ -165,33 +132,37 @@ export default function MakeBookingScreen({ navigation }) {
     const currentTime = currentDate.getTime();
 
     if (!doctor) {
-      alert("Please select a doctor.");
+      Alert.alert("Please select a doctor.");
       return;
     }
 
     if (!appointmentTime) {
-      alert("Please select an appointment time.");
+      Alert.alert("Please select an appointment time.");
       return;
     }
 
-    // Check if appointment time is before current time
     if (appointmentTime.getTime() <= currentTime) {
-      alert("Appointment time should be after current time.");
-      return;
-    }
-
-    if (!appointmentTime) {
-      alert("Please select an appointment time.");
+      Alert.alert("Appointment time should be after the current time.");
       return;
     }
 
     if (!patientName) {
-      alert("Please enter a Patient Name.");
+      Alert.alert("Please enter a Patient Name.");
+      return;
+    }
+
+    if (!patientAge) {
+      Alert.alert("Please enter Patient Age.");
+      return;
+    }
+
+    if (!patientGender) {
+      Alert.alert("Please select Patient Gender.");
       return;
     }
 
     if (!patientDescription) {
-      alert("Please Add a Patient Description.");
+      Alert.alert("Please enter Patient Description.");
       return;
     }
 
@@ -208,19 +179,16 @@ export default function MakeBookingScreen({ navigation }) {
   };
 
   return (
-    <ImageBackground
-      source={require("../assets/Admin-payments.png")}
-      style={styles.backgroundImage}
-      resizeMode="stretch"
-    >
+    <ImageBackground style={styles.backgroundImage} resizeMode="stretch">
       <Text style={[styles.title, { fontFamily: "Poppins_700Bold" }]}>
         Make a booking
       </Text>
-      {/*  */}
+
       <View style={styles.form}>
         <Picker
           selectedValue={doctor}
-          onValueChange={(doctor) => handleDoctorChange(doctor)}
+          onValueChange={handleDoctorChange}
+          mode="dropdown"
         >
           <Picker.Item label="Select a doctor" value={null} />
           {doctors.map((doctor) => (
@@ -232,61 +200,98 @@ export default function MakeBookingScreen({ navigation }) {
           ))}
         </Picker>
 
-        <View style={styles.dateTimeContainer}>
-          <View style={styles.dateTime}>
-            <Button title="Select date" onPress={showDatePickerModal} />
-          </View>
-          <View style={styles.dateTime}>
-            <Button title="Select time" onPress={showTimePickerModal} />
-          </View>
-        </View>
+        <TextInput
+          style={styles.input}
+          label="Patient Name"
+          value={patientName}
+          onChangeText={handlePatientNameChange}
+          mode="outlined"
+        />
 
-        <View>
-          <Text>Patient Name</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={handlePatientNameChange}
-            value={patientName}
-          />
-          <Text>Patient Description</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={handlePatientDescriptionChange}
-            value={patientDescription}
-          />
-        </View>
+        <TextInput
+          style={styles.input}
+          label="Patient Age"
+          value={patientAge}
+          onChangeText={handlePatientAgeChange}
+          mode="outlined"
+        />
 
         <View style={styles.dateTimeContainer}>
           <View style={styles.dateTime}>
             <Button
-              title="Check availability "
-              onPress={handleAvailabilityCheck}
-            />
+              mode="outlined"
+              buttonColor="black"
+              textColor="white"
+              onPress={showDatePickerModal}
+            >
+              Select date
+            </Button>
           </View>
           <View style={styles.dateTime}>
             <Button
-              title="Confirm booking"
-              onPress={handleBookingConfirmation}
-            />
+              mode="outlined"
+              buttonColor="black"
+              textColor="white"
+              onPress={showTimePickerModal}
+            >
+              Select time
+            </Button>
           </View>
         </View>
 
-        {showDatePicker && (
-          <DateTimePicker
-            value={appointmentTime}
-            mode="date"
-            display="default"
-            onChange={handleAppointmentDateChange}
-          />
-        )}
-        {showTimePicker && (
-          <DateTimePicker
-            value={appointmentTime}
-            mode="time"
-            display="default"
-            onChange={handleAppointmentTimeChange}
-          />
-        )}
+        <Picker
+          selectedValue={patientGender}
+          onValueChange={handlePatientGenderChange}
+          mode="dropdown"
+          style={styles.picker}
+        >
+          <Picker.Item label="Select Gender" value={null} />
+          <Picker.Item label="Male" value="male" />
+          <Picker.Item label="Female" value="female" />
+          <Picker.Item label="Other" value="other" />
+        </Picker>
+
+        <TextInput
+          style={styles.textarea}
+          label="Patient Description"
+          value={patientDescription}
+          onChangeText={handlePatientDescriptionChange}
+          // mode="outlined"
+          multiline
+          numberOfLines={4}
+        />
+
+        <Button
+          style={styles.availabilityButton}
+          buttonColor="black"
+          textColor="white"
+          onPress={handleAvailabilityCheck}
+        >
+          Check availability
+        </Button>
+
+        <Button
+          style={styles.bookingButton}
+          buttonColor="black"
+          textColor="white"
+          onPress={handleBookingConfirmation}
+        >
+          Confirm booking
+        </Button>
+
+        <DateTimePickerModal
+          isVisible={showDatePicker}
+          mode="date"
+          onConfirm={handleAppointmentDateChange}
+          onCancel={() => setShowDatePicker(false)}
+        />
+
+        <DateTimePickerModal
+          isVisible={showTimePicker}
+          mode="time"
+          onConfirm={handleAppointmentTimeChange}
+          onCancel={() => setShowTimePicker(false)}
+        />
       </View>
     </ImageBackground>
   );

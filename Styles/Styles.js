@@ -84,4 +84,42 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+
+    // new ones
+
+    input: {
+        marginVertical: 10,
+        borderRadius: 10,
+        backgroundColor: "white",
+        paddingHorizontal: 10,
+        height: 40,
+      },
+      textarea: {
+        marginVertical: 10,
+        borderRadius: 10,
+        backgroundColor: "white",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        textAlignVertical: "top",
+        height: 120,
+      },
+      button: {
+        marginVertical: 10,
+        borderRadius: 10,
+        backgroundColor: "black",
+        paddingVertical: 10,
+      },
+      picker: {
+        marginVertical: 10,
+        borderRadius: 10,
+        backgroundColor: "white",
+      },
+
+      availabilityButton: {
+        marginTop: 10, // Add margin top spacing
+      },
+    
+      bookingButton: {
+        marginTop: 10, // Add margin top spacing
+      },
 });

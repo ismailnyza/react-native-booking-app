@@ -1,7 +1,7 @@
 import React from "react";
 import {NavigationContainer, useNavigation} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
-import {Button, Image, ImageBackground, Text, View} from "react-native";
+import { Image, ImageBackground, Text, View} from "react-native";
 import {styles} from "./Styles/Styles";
 import MakeBookingScreen from "./Components/MakeBooking";
 import ConfirmBooking from "./Components/IpayForm";
@@ -12,6 +12,7 @@ import RefundDetails from "./Components/RefundDetails";
 // Import the font file
 import {useFonts} from "expo-font";
 import {Poppins_400Regular, Poppins_700Bold,} from "@expo-google-fonts/poppins";
+import { Button } from "react-native-paper";
 
 const Stack = createStackNavigator();
 
@@ -31,31 +32,35 @@ function HomeScreen() {
     return (
         <>
             <ImageBackground
-                source={require("./assets/Admin-payments.png")} // Replace with your image source
                 style={styles.backgroundImage}
                 resizeMode="stretch"
             >
+                <Image
+                    source={require("./assets/image-doctor.jpg")} // Replace with your image source
+                    style={styles.imageDoctor}
+                />
+
                 <Text style={[styles.title, {fontFamily: "Poppins_700Bold"}]}>
                     BookDoc
                 </Text>
-                <Image
-                    source={require("./assets/image-doctor.png")} // Replace with your image source
-                    style={styles.imageDoctor}
-                />
                 <View style={styles.buttonContainer}>
                     <Button
-                        title="Make a booking"
-                        color="black"
+                        buttonColor="black"
+                        textColor="white"
                         onPress={() => navigation.navigate("MakeBookingScreen")}
-                        style={styles.button}
-                    />
+                    >
+                    Make a booking
+                    </Button>
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button
-                        title="My Bookings"
-                        color="black"
+                        
+                        buttonColor="black"
+                        textColor="white"
                         onPress={() => navigation.navigate("MyBookingsScreen")}
-                    />
+                    >
+                        My Bookings
+                        </Button>
                 </View>
             </ImageBackground>
         </>
