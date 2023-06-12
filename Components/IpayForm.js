@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import { WebView } from "react-native-webview";
+import uuid from "react-native-uuid";
 
 const styles = StyleSheet.create({
   container: {
@@ -9,9 +10,10 @@ const styles = StyleSheet.create({
 });
 
 export default function IpayForm(props) {
+  const sessionUUID = uuid.v4();
   const [currentUrl, setCurrentUrl] = useState("");
   const patient = props.route.params;
-  console.log("Patient:", patient);
+  console.log(patient);
   const handleNavigationStateChange = (navState) => {
     const { url } = navState;
     if (url != null) {
@@ -55,100 +57,82 @@ export default function IpayForm(props) {
     }
   };
 
-  const htmlContent = `
-  <!DOCTYPE html>
+  const htmlContent =
+    `
+    <!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f2f2f2;
-    }
-
     .container {
       width: 100%;
       max-width: 480px;
-      padding: 20px;
-      background-color: #ffffff;
+      margin: 0 auto;
+      padding: 5px;
+    }
+
+    form {
+      background-color: #f2f2f2;
+      padding: 10px;
       border-radius: 5px;
-      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      font-weight: bold;
+    label {
       display: block;
       margin-bottom: 8px;
     }
 
-    .form-group input[type="text"] {
+    input[type="text"],
+    input[type="submit"] {
       width: 100%;
-      padding: 12px;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
       border: 1px solid #ccc;
-      border-radius: 4px;
       box-sizing: border-box;
     }
 
-    .form-group input[type="submit"] {
-      width: 100%;
-      padding: 14px 0;
+    input[type="submit"] {
+      background-color: #4caf50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
       border: none;
-      border-radius: 4px;
-      background-color: #000000;
-      color: #ffffff;
-      font-size: 16px;
       cursor: pointer;
     }
 
-    .form-group input[type="submit"]:hover {
-      background-color: #333333;
-    }
-
-    .form-group input[type="submit"]:focus {
-      outline: none;
+    .title {
+      text-align: center;
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <h3 class="title">Customer Details</h3>
+    <span>note: This is the details of the payee, not the patient</span>
     <form method="POST" action="https://sandbox.ipay.lk/ipg/checkout">
-      <div class="form-group">
-        <label for="customerName">Name</label>
-        <input type="text" name="customerName" id="customerName" />
-      </div>
-      <div class="form-group">
-        <label for="customerPhone">Phone</label>
-        <input type="text" name="customerPhone" id="customerPhone" />
-      </div>
-      <div class="form-group">
-        <label for="customerEmail">Email</label>
-        <input type="text" name="customerEmail" id="customerEmail" />
-      </div>
-      <div class="form-group">
-        <label for="totalAmount">Amount</label>
-        <input type="text" name="totalAmount" id="totalAmount" value="2000" disabled />
-      </div>
+      <input type="hidden" name="orderId" id="orderId" value="OID${sessionUUID}" />
+      <input type="hidden" name="orderDescription" id="orderDescription" value="My Order${sessionUUID}" />
       <input type="hidden" name="merchantWebToken" value="eyJhbGciOiJIUzUxMiJ9.eyJtaWQiOiIwMDAwMDQzNyJ9.QRjj-CMOM95XyEhhYPHcKE_wx1nAfpyLlCOCj6hqgSURevSLfWF2_kz7_lX4lrZE4tEPutKVNJCMqRI9mRG03Q" />
-      <input type="hidden" name="orderId" value="OID123456" />
-      <input type="hidden" name="orderDescription" value="My Order``" />
       <input type="hidden" name="returnUrl" value="http://mywebsite.com/return?orderId=OID123456" />
       <input type="hidden" name="cancelUrl" value="http://mywebsite.com/cancel?orderId=OID123456" />
       <input type="hidden" name="subMerchantReference" value="" />
+      <label for="totalAmount">Total Amount</label>
+      <input type="text" name="totalAmount" id="totalAmount" value="2000" disabled />
+      <label for="customerName">Customer Name</label>
+      <input type="text" name="customerName" id="customerName" required />
+      <label for="customerPhone">Customer Phone</label>
+      <input type="text" name="customerPhone" id="customerPhone" required />
+      <label for="customerEmail">Customer Email</label>
+      <input type="text" name="customerEmail" id="customerEmail" required />
       <input type="submit" value="Checkout Now" />
     </form>
   </div>
 </body>
 </html>
 
-  `;
+    `;
 
   return (
     <View style={styles.container}>
