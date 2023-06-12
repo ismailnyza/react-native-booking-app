@@ -63,7 +63,7 @@ export default function IpayForm(props) {
       </head>
       <body>
         <form method="POST" action="https://sandbox.ipay.lk/ipg/checkout">
-          <input type="hidden" name="merchantWebToken" value="YOUR_MERCHANT_WEB_TOKEN">
+          <input type="hidden" name="merchantWebToken" value="eyJhbGciOiJIUzUxMiJ9.eyJtaWQiOiIwMDAwMDQzNyJ9.QRjj-CMOM95XyEhhYPHcKE_wx1nAfpyLlCOCj6hqgSURevSLfWF2_kz7_lX4lrZE4tEPutKVNJCMqRI9mRG03Q">
           <input type="hidden" name="orderId" value="${sessionUUID}">
           <input type="hidden" name="returnUrl" value="http://mywebsite.com/return?orderId=OID123456">
           <input type="hidden" name="cancelUrl" value="http://mywebsite.com/cancel?orderId=OID123456">
