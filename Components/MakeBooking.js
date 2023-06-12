@@ -32,6 +32,16 @@ export default function MakeBookingScreen({ navigation }) {
   const doctors = [
     { key: 1, doctorName: "Dr. John Smith" },
     { key: 2, doctorName: "Dr. Jane Doe" },
+    { key: 3, doctorName: "Dr. David Johnson" },
+    { key: 4, doctorName: "Dr. Sarah Anderson" },
+    { key: 5, doctorName: "Dr. Michael Williams" },
+    { key: 6, doctorName: "Dr. Emily Brown" },
+    { key: 7, doctorName: "Dr. Christopher Taylor" },
+    { key: 8, doctorName: "Dr. Jessica Martinez" },
+    { key: 9, doctorName: "Dr. Daniel Wilson" },
+    { key: 10, doctorName: "Dr. Olivia Thompson" },
+    { key: 11, doctorName: "Dr. Benjamin Davis" },
+    { key: 12, doctorName: "Dr. Sophia Rodriguez" },
   ];
 
   const handleDoctorChange = (doctor) => {
@@ -172,7 +182,11 @@ export default function MakeBookingScreen({ navigation }) {
         hour: "2-digit",
         minute: "2-digit",
       }),
-      doctorName: doctor,
+      doctorName: doctors[doctor - 1].doctorName, // Updated to retrieve doctor name
+      patientName: patientName, // Added patient name
+      patientAge: patientAge, // Added patient age
+      patientGender: patientGender, // Added patient gender
+      patientDescription: patientDescription, // Added patient description
       hospital: "City Hospital",
       totalCharge: 2000.0,
     });
