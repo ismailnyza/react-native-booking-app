@@ -59,76 +59,40 @@ export default function IpayForm(props) {
 
   const htmlContent =
     `
-    <!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    .container {
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 5px;
-    }
-
-    form {
-      background-color: #f2f2f2;
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    input[type="text"],
-    input[type="submit"] {
-      width: 100%;
-      padding: 12px 20px;
-      margin: 8px 0;
-      display: inline-block;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-
-    input[type="submit"] {
-      background-color: #4caf50;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      cursor: pointer;
-    }
-
-    .title {
-      text-align: center;
-      margin-top: 0;
-    }
-  </style>
-</head>
+    <html>
 <body>
-  <div class="container">
-    <h3 class="title">Customer Details</h3>
-    <span>note: This is the details of the payee, not the patient</span>
-    <form method="POST" action="https://sandbox.ipay.lk/ipg/checkout">
-      <input type="hidden" name="orderId" id="orderId" value="OID${sessionUUID}" />
-      <input type="hidden" name="orderDescription" id="orderDescription" value="My Order${sessionUUID}" />
-      <input type="hidden" name="merchantWebToken" value="eyJhbGciOiJIUzUxMiJ9.eyJtaWQiOiIwMDAwMDQzNyJ9.QRjj-CMOM95XyEhhYPHcKE_wx1nAfpyLlCOCj6hqgSURevSLfWF2_kz7_lX4lrZE4tEPutKVNJCMqRI9mRG03Q" />
-      <input type="hidden" name="returnUrl" value="http://mywebsite.com/return?orderId=OID123456" />
-      <input type="hidden" name="cancelUrl" value="http://mywebsite.com/cancel?orderId=OID123456" />
-      <input type="hidden" name="subMerchantReference" value="" />
-      <label for="totalAmount">Total Amount</label>
-      <input type="text" name="totalAmount" id="totalAmount" value="2000" disabled />
-      <label for="customerName">Customer Name</label>
-      <input type="text" name="customerName" id="customerName" required />
-      <label for="customerPhone">Customer Phone</label>
-      <input type="text" name="customerPhone" id="customerPhone" required />
-      <label for="customerEmail">Customer Email</label>
-      <input type="text" name="customerEmail" id="customerEmail" required />
-      <input type="submit" value="Checkout Now" />
-    </form>
-  </div>
+<form method="POST" action="https://sandbox.ipay.lk/ipg/checkout">
+<input type="hidden" name="merchantWebToken" value="eyJhbGciOiJIUzUxMiJ9.eyJtaWQiOiIwMDAwMDQzNyJ9.QRjj-CMOM95XyEhhYPHcKE_wx1nAfpyLlCOCj6hqgSURevSLfWF2_kz7_lX4lrZE4tEPutKVNJCMqRI9mRG03Q"> 
+<input type="hidden" name="orderId" value="OID123456` +
+    patient.patientName +
+    `">
+<input type="hidden" name="returnUrl" value="http://mywebsite.com/return?orderId=OID123456">
+<input type="hidden" name="cancelUrl" value="http://mywebsite.com/cancel?orderId=OID123456">
+<table>
+<tr>
+<td>Total Amount</td>
+<td>:</td>
+<td><input type="text" name="totalAmount" value="750"></td>
+</tr>
+<tr>
+<td>Customer Name </td>
+<td>:</td>
+<td><input type="text" name="customerName" value="Ravindu Fernando"></td>
+</tr>
+<tr>
+<td>Customer Mobile</td>
+<td>:</td>
+<td><input type="text" name="customerPhone" value="0701234567"></td>
+</tr>
+<tr>
+<td>Customer Email</td>
+<td>:</td>
+<td><input type="text" name="customerEmail" value="myemail@mail.com"></td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Checkout Now">
+</form>
 </body>
 </html>
 
