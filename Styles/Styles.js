@@ -2,15 +2,16 @@ import {StyleSheet} from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 2,
-        flexDirection: "column",
+        flex: 1 ,
+        // flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "white",
-        height: "100%",
-        width: "100%",
+        // height: "100%",
+        // width: "100%",
         fontFamily: "Poppins_700Bold",
         color: "black",
+        padding: 1
     },
     backgroundGradient: {
         flex: 1,
@@ -122,4 +123,62 @@ export const styles = StyleSheet.create({
       bookingButton: {
         marginTop: 10, // Add margin top spacing
       },
+
+    //   
+     // New styles for MyBookingsScreen
+  backgroundImage: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+  bookingCard: {
+    width: "100%",
+    maxWidth: 400,
+    marginBottom: 10,
+  },
+  bookingRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 5,
+  },
+  bookingInfoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap", // Wrap the content to the next line if it exceeds the width
+  },
+  bookingLabel: {
+    marginRight: 5,
+    marginLeft:10,
+    fontWeight: "bold",
+  },
+  bookingInfo: {
+    marginLeft: 5,
+    flexShrink: 1, // Allow the text to shrink if it exceeds the available space
+  },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  button: {
+    height: 40,
+    width: "48%",
+  },
+
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    padding: 10,
+  },
+  heading: {
+    fontSize: 32,
+    fontWeight: "bold",
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 30
+  },
+  contentContainer: {
+    flexGrow: 1,
+  },
 });
