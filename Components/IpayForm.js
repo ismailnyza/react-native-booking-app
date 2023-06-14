@@ -55,8 +55,8 @@ export default function IpayForm(props) {
 
   const htmlContent = `
   <form method="POST" action="https://sandbox.ipay.lk/ipg/checkout">
-  <input type="hidden" name="merchantWebToken" value="eyJhbGciOiJIUz..."> <!-- Replace your web token -->
-  <input type="hidden" name="orderId" value="OID123456">
+  <input type="hidden" name="merchantWebToken" value="eyJhbGciOiJIUzUxMiJ9.eyJtaWQiOiIwMDAwMDQzNyJ9.QRjj-CMOM95XyEhhYPHcKE_wx1nAfpyLlCOCj6hqgSURevSLfWF2_kz7_lX4lrZE4tEPutKVNJCMqRI9mRG03Q"> <!-- Replace your web token -->
+  <input type="hidden" name="orderId" value="OderID${sessionUUID}">
   <input type="hidden" name="orderDescription" value="My Order"> <!-- Optional -->
   <input type="hidden" name="returnUrl" value="http://mywebsite.com/return?orderId=OID123456">
   <input type="hidden" name="cancelUrl" value="http://mywebsite.com/cancel?orderId=OID123456">
