@@ -16,7 +16,7 @@ export default function IpayForm(props) {
   const handleNavigationStateChange = (navState) => {
     const { url } = navState;
     if (url != null) {
-      console.log(url);
+      console.log("return url:" , url);
     }
 
     if (
@@ -46,7 +46,7 @@ export default function IpayForm(props) {
           Alert.alert("Failed to create booking");
           props.navigation.navigate("Home");
         });
-    } else if (url === "http://mywebsite.com/cancel?orderId=OID123456") {
+    } else if (url === "http://mywebsite.com/cancel?orderId=OderID${sessionUUID}") {
       // Payment failed
       props.navigation.navigate("Home");
       Alert.alert("Transaction Failed");
