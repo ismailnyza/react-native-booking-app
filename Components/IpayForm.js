@@ -16,42 +16,43 @@ export default function IpayForm(props) {
   const handleNavigationStateChange = (navState) => {
     const { url } = navState;
     if (url != null) {
-      console.log("return url:" , url);
+      console.log(url);
     }
 
-    if (
-      url.startsWith(
-        "https://sandbox.ipay.lk/ipg/checkout/mpgs/return?resultIndicator"
-      )
-    ) {
-      // Payment successful
-      fetch("http://192.168.122.1:9090/bookings/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(patient),
-      })
-        .then((response) => {
-          if (response.ok) {
-            Alert.alert("Payment Successful");
-            props.navigation.navigate("Home");
-          } else {
-            Alert.alert("Failed to create booking");
-            props.navigation.navigate("Home");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          Alert.alert("Failed to create booking");
-          props.navigation.navigate("Home");
-        });
-    } else if (url === "http://mywebsite.com/cancel?orderId=OderID${sessionUUID}") {
-      // Payment failed
-      props.navigation.navigate("Home");
-      Alert.alert("Transaction Failed");
-    }
-  };
+  //   if (
+  //     url.startsWith(
+  //       "https://sandbox.ipay.lk/ipg/checkout/mpgs/return?resultIndicator"
+  //     )
+  //   ) {
+  //     // Payment successful
+  //     fetch("http://192.168.122.1:9090/bookings/create", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(patient),
+  //     })
+  //       .then((response) => {
+  //         if (response.ok) {
+  //           Alert.alert("Payment Successful");
+  //           props.navigation.navigate("Home");
+  //         } else {
+  //           Alert.alert("Failed to create booking");
+  //           props.navigation.navigate("Home");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //         Alert.alert("Failed to create booking");
+  //         props.navigation.navigate("Home");
+  //       });
+  //   } else if (url === "http://mywebsite.com/cancel?orderId=OID123456") {
+  //     // Payment failed
+  //     props.navigation.navigate("Home");
+  //     Alert.alert("Transaction Failed");
+  //   }
+  // };
+  
 
   const htmlContent = `
   <form method="POST" action="https://sandbox.ipay.lk/ipg/checkout">
