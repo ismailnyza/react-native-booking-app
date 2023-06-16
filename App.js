@@ -8,6 +8,7 @@ import ConfirmBooking from "./Components/IpayForm";
 import IpayForm from "./Components/IpayForm";
 import MyBookings from "./Components/MyBookings";
 import RefundDetails from "./Components/RefundDetails";
+import RefundFormScreen from "./Components/RefundFormScreen";
 
 // Import the font file
 import {useFonts} from "expo-font";
@@ -81,6 +82,7 @@ export default function App() {
                 <Stack.Screen name="ConfirmBooking" component={ConfirmBooking}/>
                 <Stack.Screen name="IpayForm" component={IpayForm}/>
                 <Stack.Screen name="RefundDetails" component={RefundDetails}/>
+                <Stack.Screen name="RefundFrom" component={RefundFormScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -4,12 +4,15 @@ import { Alert } from "react-native";
 import { FlatList, Text, View, Linking } from "react-native";
 import { Button, Card, IconButton } from "react-native-paper";
 import { styles } from "../Styles/Styles";
+import RefundFormScreen from "./RefundFormScreen";
 
 function BookingItem({ booking, navigation }) {
   const [showRefundBubble, setShowRefundBubble] = useState(false);
 
   const handleRefundClick = () => {
-    navigation.navigate("RefundDetails", { bookingData: booking });
+    navigation.navigate("RefundFrom", {
+      bookingData: booking,
+    });
   };
 
   const cancelBooking = async (bookingId) => {
@@ -21,11 +24,9 @@ function BookingItem({ booking, navigation }) {
       });
 
       if (response.ok) {
-        // Booking canceled successfully
         console.log("Booking canceled successfully");
-        // Perform any necessary actions after successful cancellation
+        handleRefundClick();
       } else {
-        // Handle the error case
         throw new Error("Failed to cancel booking");
       }
     } catch (error) {
@@ -33,20 +34,25 @@ function BookingItem({ booking, navigation }) {
       Alert.alert("Error", "Failed to cancel booking. Please try again later.");
     }
   };
+
   const formatDate = (date) => {
-    const options = { day: "numeric", month: "long" };
-    return new Date(date).toLocaleDateString(undefined, options);
+    if (!Array.isArray(date) || date.length !== 3) {
+      return "Invalid date";
+    }
+
+    const [year, month, day] = date;
+    const formattedDate = `${day}/${month + 1}/${year}`;
+    return formattedDate;
   };
 
   const formatTime = (time) => {
-    const options = { hour: "numeric", minute: "numeric", hour12: true };
-    return new Date(time).toLocaleTimeString([], options);
-  };
+    if (!Array.isArray(time) || time.length !== 2) {
+      return "Invalid time";
+    }
 
-  const handleCallButtonPress = () => {
-    const phoneNumber = "0123456789"; // Replace with desired phone number
-    const url = `tel:${phoneNumber}`;
-    Linking.openURL(url);
+    const [hour, minute] = time;
+    const formattedTime = `${hour}:${minute}`;
+    return formattedTime;
   };
 
   return (
@@ -56,7 +62,7 @@ function BookingItem({ booking, navigation }) {
           <View style={styles.bookingInfoContainer}>
             <IconButton icon="clock-outline" size={20} />
             <Text style={styles.bookingInfo}>
-              {formatDate(booking.bookingDate)}, {formatTime(booking.bookingTimeFrom)} - {formatTime(booking.bookingTimeTo)}
+              {formatDate(booking.bookingDate)}, {formatTime(booking.bookingTime)}
             </Text>
           </View>
         </View>
@@ -66,26 +72,17 @@ function BookingItem({ booking, navigation }) {
             <Text style={styles.bookingInfo}>{booking.bookingDoctor}</Text>
           </View>
           <View style={styles.bookingInfoContainer}>
-            <Text style={styles.bookingLabel}>Hospital:G.H. Galle</Text>
+            <Text style={styles.bookingLabel}>Hospital:</Text>
             <Text style={styles.bookingInfo}>{booking.bookingHospital}</Text>
           </View>
         </View>
         <View style={styles.buttonRow}>
           <Button
-            icon="phone"
-            mode="contained"
-            color="black"
-            style={styles.button}
-            onPress={handleCallButtonPress}
-          >
-            Call
-          </Button>
-          <Button
             icon="trash-can-outline"
             mode="contained"
             color="black"
             style={styles.button}
-            onPress={() => cancelBooking(booking.bookingId)}
+            onPress={() => handleRefundClick(booking.bookingId)}
           >
             Cancel Booking
           </Button>
@@ -117,6 +114,12 @@ export default function MyBookingsScreen({ navigation }) {
     return unsubscribe;
   }, [navigation]);
 
+  const handleRequestRefund = (customerName, accountDetails) => {
+    // Perform refund request logic
+    // You can access customerName, accountDetails, and other necessary data here
+    // Add your code here
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>My Bookings</Text>
@@ -129,6 +132,7 @@ export default function MyBookingsScreen({ navigation }) {
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={true}
       />
+      <StatusBar style="auto" />
     </View>
   );
 }
