@@ -181,4 +181,97 @@ export const styles = StyleSheet.create({
   contentContainer: {
     flexGrow: 1,
   },
+
+  // container: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   backgroundColor: "white",
+  //   fontFamily: "Poppins_700Bold",
+  //   color: "black",
+  //   padding: 1,
+  // },
+  backgroundGradient: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 24,
+    fontFamily: "Poppins_700Bold",
+    color: "black",
+  },
+  form: {
+    width: "80%",
+    color: "black",
+    fontFamily: "Poppins_400Regular",
+    borderColor: 'black'
+  },
+  input: {
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: 'white',
+    paddingLeft: 10,
+    marginVertical: 10,
+    height: 40,
+  },
+  label: {
+    fontSize: 16,
+    color: "black",
+    fontFamily: "Poppins_400Regular",
+    margin: 2,
+  },
+  dateTimeText: {
+    fontSize: 16,
+    marginBottom: 10,
+    color: "black",
+    fontFamily: "Poppins_400Regular",
+  },
+  dateTimeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    color: "black",
+    fontFamily: "Poppins_700Bold",
+  },
+  dateTime: {
+    flex: 1,
+    marginRight: 10,
+    color: "black",
+    fontFamily: "Poppins_700Bold",
+  },
+  buttonContainer: {
+    marginTop: 10,
+    width: 200,
+    height: 50,
+  },
+  imageDoctor: {
+    width: 250,
+    height: 250,
+    resizeMode: "contain",
+  },
+  picker: {
+    color: "black",
+    fontFamily: "Poppins_400Regular",
+    marginVertical: 10,
+    borderRadius: 10,
+    backgroundColor: "white",
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  availabilityButton: {
+    marginTop: 10,
+  },
+  bookingButton: {
+    marginTop: 10,
+  }
+
 });

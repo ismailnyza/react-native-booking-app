@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Text, View, TextInput, Button, Alert } from "react-native";
 import { styles } from "../Styles/Styles";
 
-function RefundFormScreen({ route }) {
-  const { bookingData, handleRequestRefund } = route.params;
+function RefundFormScreen({ route, navigation }) {
+  const { bookingData } = route.params;
   const [customerName, setCustomerName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [bank, setBank] = useState("");
@@ -16,15 +16,23 @@ function RefundFormScreen({ route }) {
       return;
     }
 
-    handleRequestRefund({
-      customerName,
-      accountNumber,
-      bank,
-      branch,
-      contactNumber,
-    });
+    fetch(`http://192.168.122.1:9090/bookings/${bookingData.bookingId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          Alert.alert("Success", "Refund request submitted successfully.");
+          navigation.navigate("Home");
+        } else {
+          Alert.alert("Error", "Failed to submit refund request.");
+        }
+      })
+      .catch((error) => {
+        Alert.alert("Error", "An error occurred while submitting refund request.");
+      });
   };
 
+  console.log(bookingData);
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Refund Form</Text>
